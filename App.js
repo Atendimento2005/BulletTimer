@@ -1,9 +1,8 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useCallback, useState, useEffect } from "react";
 import * as SplashScreen from 'expo-splash-screen';
-import { StyleSheet, Text, View, Pressable } from "react-native";
+import { StyleSheet, Text, View, Pressable} from "react-native";
 import * as Font from "expo-font";
-import AppLoading from "expo-app-loading";
 
 const green = '#7abd7e';
 const yellow = '#f8d66d';
@@ -99,19 +98,29 @@ export default function App() {
       setCurState(1);
     }
 	};
+
+  const reset = () => {
+    setCurState(0);
+    setSolved(0);
+    setTotalTime(0);
+    setCurMS(0);
+    setBgColor(grey);
+  };
+
 	// < 1 min green
 	// 1 min yellow
 
 	return (
-		<Pressable style={containerStyle} onPress={toggle} onLayout={onLayoutRootView}>
+    <Pressable style={containerStyle} onPress={toggle} onLongPress={reset} onLayout={onLayoutRootView}>
+      <StatusBar style={{backgroundColor: bgColor}}></StatusBar>
       <View style={{height: 100}}></View>
       <View style={styles.timerWrapper}>
         <Text style={styles.timerText}>{`${String(Math.floor(curMS / 60000)).padStart(2, '0')}:${String(Math.floor(curMS / 1000)%60).padStart(2, '0')}:${String(Math.floor(curMS % 100)).padStart(2, '0')}`}</Text>
       </View>
 			<View style={styles.questionsWrapper}>
 				<Text style={styles.questionsText}>{`Questions Solved: ${solved}`}</Text>
-				<Text style={styles.questionsText}>{solved == 0 ? `Total Time: -` : `Total Time: ${String(Math.floor((totalTime)/1000)%60).padStart(2, '0')}:${String(Math.floor((totalTime)%100)).padStart(2, '0')}`}</Text>
-				<Text style={styles.questionsText}>{solved == 0 ? `Avg Time: -` : `Avg Time: ${String(Math.floor((totalTime/solved)/1000)%60).padStart(2, '0')}:${String(Math.floor((totalTime/solved)%100)).padStart(2, '0')}`}</Text>
+				<Text style={styles.questionsText}>{solved == 0 ? `Total Time: -` : `Total Time: ${String(Math.floor((totalTime)/60000)%60).padStart(2, '0')}:${String(Math.floor((totalTime/1000)%60)).padStart(2, '0')}`}</Text>
+				<Text style={styles.questionsText}>{solved == 0 ? `Avg Time: -` : `Avg Time: ${String(Math.floor((totalTime/solved)/60000)%60).padStart(2, '0')}:${String(Math.floor(((totalTime/solved)/1000)%60)).padStart(2, '0')}`}</Text>
 			</View>
 		</Pressable>
 	);
