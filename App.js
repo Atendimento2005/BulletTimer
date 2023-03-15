@@ -106,7 +106,7 @@ export default function App() {
     setCurMS(0);
     setBgColor(grey);
   };
-
+  
 	// < 1 min green
 	// 1 min yellow
 

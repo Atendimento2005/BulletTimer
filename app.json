@@ -4,7 +4,7 @@
     "description": "A timer app for those preparing for competitive exams",
     "slug": "BulletTimer",
     "version": "1.0.0",
-    "orientation": "portrait",
+    "orientation": "landscape",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
